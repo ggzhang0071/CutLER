@@ -356,6 +356,10 @@ if __name__ == "__main__":
     image_names = []
     for img_folder in img_folders[start_idx:end_idx]:
         args.img_dir = os.path.join(args.dataset_path, img_folder)
+        # skip entries that are not directories (e.g., result0.txt)
+        if (not os.path.isdir(args.img_dir)) or ("模糊" in img_folder):
+            continue
+
         img_list = sorted(os.listdir(args.img_dir))
 
         for img_name in tqdm(img_list) :

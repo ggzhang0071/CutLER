@@ -13,6 +13,8 @@ from scipy import ndimage
 from detectron2.utils.colormap import random_color
 
 import dino # model
+import sys
+sys.path.append('/git/cutler/maskcut')
 from third_party.TokenCut.unsupervised_saliency_detection import metric
 from crf import densecrf
 from maskcut import maskcut
@@ -105,4 +107,6 @@ if __name__ == "__main__":
     input = np.array(I)
     for pseudo_mask in pseudo_mask_list:
         input = vis_mask(input, pseudo_mask, random_color(rgb=True))
+    if not os.path.exists(args.output_path):
+        os.makedirs(args.output_path)
     input.save(os.path.join(args.output_path, "demo.jpg"))
